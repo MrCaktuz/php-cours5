@@ -9,19 +9,23 @@
 // }
 
 function index() {
-    include( $GLOBALS[ 'e' ] . '.php' );
-    $data[ 'books' ] = call_user_func( $GLOBALS[ 'a' ] );
-    $data[ 'view' ] = 'view/' . $GLOBALS[ 'a' ] . $GLOBALS[ 'e' ] . '.php';
+    include( 'models/' . $GLOBALS[ 'e' ] . '.php' );
+    $data[ 'books' ] = getBooks();
+    $data[ 'view' ] = 'views/' . $GLOBALS[ 'a' ] . $GLOBALS[ 'e' ] . '.php';
+
+    return $data;
 }
 
 function show() {
     if ( isset( $_GET[ 'id' ] ) ) {
         $id = intval( $_GET[ 'id' ] ); // intval nous permet de vérifier si c'est bien un entier.
-        include( $GLOBALS[ 'e' ] . '.php' );
+        include( 'models/' . $GLOBALS[ 'e' ] . '.php' );
         // $book = getBook( $id );
         // $view = 'views/singlebook.php'; // supprimé grace à la ligne 36, 38.
-        $data[ 'books' ] = call_user_func( $GLOBALS[ 'a' ], $id );
-        $data[ 'view' ] = 'view/' . $GLOBALS[ 'a' ] . $GLOBALS[ 'e' ] . '.php';
+        $data[ 'book' ] = getBook( $id );
+        $data[ 'view' ] = 'views/' . $GLOBALS[ 'a' ] . $GLOBALS[ 'e' ] . '.php';
+
+        return $data;
     } else {
         die( 'il manque l\'id' );
     }

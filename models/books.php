@@ -1,6 +1,6 @@
 <?php
 
-function index() {
+function getBooks() {
     $booksStmnt = 'SELECT * FROM books';
     $pdoStmnt = $GLOBALS[ 'cn' ] -> query( $booksStmnt ); // GLOBALS nous permet de récuperer n'importe quel variable.
     // var_dump( $pdoStmnt );
@@ -10,7 +10,7 @@ function index() {
     return $pdoStmnt -> fetchAll();
 }
 
-function show( $id ) {
+function getBook( $id ) {
     $bookSql = 'SELECT * FROM books WHERE id = :id';
     $bookStmnt = $GLOBALS[ 'cn' ] -> prepare( $bookSql );
     $bookStmnt -> execute( [ 'id' => $_GET[ 'id' ] ] );
