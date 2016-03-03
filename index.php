@@ -19,6 +19,8 @@ try{
     die( $e->getMessage() );
 }
 
+include( 'routes.php' );
+
 //les nom des variable sont choisi en fonction de l'architecture REST
 $a = isset( $_REQUEST[ 'a' ] ) ? $_REQUEST[ 'a' ] : 'index';
 // ça remplace ça :
@@ -34,6 +36,9 @@ $e = isset( $_REQUEST[ 'e' ] ) ? $_REQUEST[ 'e' ] : 'books';
 //     $e = $_REQUEST[ 'e' ];
 // }
 
+if ( !in_array( $a . '_' . $e, $routes ) ) {
+    die( 'cette route n\'est pas permise' );
+}
 
 include( 'controllers/' . $e . 'controller.php' );
 

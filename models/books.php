@@ -13,7 +13,7 @@ function getBooks() {
 function getBook( $id ) {
     $bookSql = 'SELECT * FROM books WHERE id = :id';
     $bookStmnt = $GLOBALS[ 'cn' ] -> prepare( $bookSql );
-    $bookStmnt -> execute( [ 'id' => $_GET[ 'id' ] ] );
+    $bookStmnt -> execute( [ 'id' => $id ] );
 
     return $bookStmnt -> fetch(); // je vais chercher le résultat de la requete.
 }
