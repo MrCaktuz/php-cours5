@@ -18,10 +18,21 @@ try{
 } catch( PDOException $e ) {
     echo $e->getMessage();
 }
+
+include( 'book.php' );
+
+if ( isset( $_GET[ 'id' ] ) ) {
+    $id = intval( $_GET[ 'id' ] ); // intval nous permet de vérifier si c'est bien un entier.
+    $book = getBook( $id );
+    $view = 'singlebook.php';
+} else{
+    $books = getBooks();
+    $view = 'allbooks.php';
+}
+
 // maintenant la page est connecté avec la BDD.
 // probleme on peut voir nos mdp si on les met sur github... On va créer un db.ini.
 
-include( 'book.php' );
 // $booksStmnt = 'SELECT * FROM books';
 // $pdoStmnt = $cn -> query( $booksStmnt );
 // // var_dump( $pdoStmnt );
