@@ -16,19 +16,40 @@ try{
     $cn -> query( 'SET CHARACTER SET UTF8' );
     $cn -> query( 'SET NAMES UTF8' );
 } catch( PDOException $e ) {
-    echo $e->getMessage();
+    die( $e->getMessage() );
 }
 
-include( 'book.php' );
+//les nom des variable sont choisi en fonction de l'architecture REST
+$a = isset( $_REQUEST[ 'a' ] ) ? $_REQUEST[ 'a' ] : 'index';
+// ça remplace ça :
+// $a = 'index';
+// if ( isset( $_REQUEST[ 'a' ] ) ) {
+//     $a = $_REQUEST[ 'a' ];
+// }
 
-if ( isset( $_GET[ 'id' ] ) ) {
-    $id = intval( $_GET[ 'id' ] ); // intval nous permet de vérifier si c'est bien un entier.
-    $book = getBook( $id );
-    $view = 'singlebook.php';
-} else{
-    $books = getBooks();
-    $view = 'allbooks.php';
-}
+$e = isset( $_REQUEST[ 'e' ] ) ? $_REQUEST[ 'e' ] : 'books';
+//ça remplace ça :
+// $e = "books";
+// if ( isset( $_REQUEST[ 'e' ] ) ) {
+//     $e = $_REQUEST[ 'e' ];
+// }
+
+
+include( 'controllers/' . $e . 'controller.php' );
+
+$datas = call_user_func( $a );
+
+// supprimé grace à la ligne 40.
+// if ( isset( $_GET[ 'id' ] ) ) {
+//     $id = intval( $_GET[ 'id' ] ); // intval nous permet de vérifier si c'est bien un entier.
+//     $book = getBook( $id );
+//     // $view = 'views/singlebook.php'; // supprimé grace à la ligne 36, 38.
+// } else{
+//     $books = getBooks();
+//     // $view = 'views/allbooks.php'; // supprimé grace à la ligne 36, 38.
+// }
+
+
 
 // maintenant la page est connecté avec la BDD.
 // probleme on peut voir nos mdp si on les met sur github... On va créer un db.ini.
@@ -39,7 +60,7 @@ if ( isset( $_GET[ 'id' ] ) ) {
 // $books = $pdoStmnt -> fetchAll(); // va rechercher les données dans la BDD et les stock sous forme de tableau dans $books.
 // // var_dump( $books );
 
-include( 'view.php' );
+include( 'views/view.php' );
 // foreach ( $books as $book ) {
 //     echo $book -> title . '<br>';
 // } // ça marche mais on préfère utiliser la syntax d'objet. Pour ça on va faire un array d'option dans le PDO

@@ -5,6 +5,6 @@
         <title>books</title>
     </head>
     <body>
-        <?php include( $view ); ?>
+        <?php include( $datas[ 'view' ] ); ?>
     </body>
 </html>

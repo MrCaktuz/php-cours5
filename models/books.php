@@ -1,16 +1,16 @@
 <?php
 
-function getBooks() {
+function index() {
     $booksStmnt = 'SELECT * FROM books';
     $pdoStmnt = $GLOBALS[ 'cn' ] -> query( $booksStmnt ); // GLOBALS nous permet de récuperer n'importe quel variable.
     // var_dump( $pdoStmnt );
-    $books = $pdoStmnt -> fetchAll(); // va rechercher les données dans la BDD et les stock sous forme de tableau dans $books.
+    // $books = $pdoStmnt -> fetchAll(); // va rechercher les données dans la BDD et les stock sous forme de tableau dans $books.
     // var_dump( $books );
 
-    return $books;
+    return $pdoStmnt -> fetchAll();
 }
 
-function getBook( $id ) {
+function show( $id ) {
     $bookSql = 'SELECT * FROM books WHERE id = :id';
     $bookStmnt = $GLOBALS[ 'cn' ] -> prepare( $bookSql );
     $bookStmnt -> execute( [ 'id' => $_GET[ 'id' ] ] );
