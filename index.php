@@ -3,8 +3,8 @@
 // à chaque fois qu'on fait une requete PHP on va devoir aller dans la base de données BDD.
 // Quand on travaille des objet il faut les décrire avant.
 
-$dbConfig = parse_ini_file( 'db.ini' );
-//var_dump($dbConfig); // Pour voir ce qu'il y a dedans.
+$dbConfig = parse_ini_file( 'db.ini' ); // contient les donnée qu'on ne veut pas divulger.
+// var_dump($dbConfig); // Pour voir ce qu'il y a dedans.
 $pdoOptions = [
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
@@ -43,6 +43,7 @@ if ( !in_array( $a . '_' . $e, $routes ) ) {
 include( 'controllers/' . $e . 'controller.php' );
 
 $datas = call_user_func( $a );
+// var_dump( $datas );
 
 // supprimé grace à la ligne 40.
 // if ( isset( $_GET[ 'id' ] ) ) {

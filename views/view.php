@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <title>books</title>
+        <title>Biblio2</title>
     </head>
     <body>
         <?php include( $datas[ 'view' ] ); ?>
