@@ -9,9 +9,9 @@
 // }
 
 function index() {
-    include( 'models/' . $GLOBALS[ 'e' ] . '.php' );
-    $data[ 'books' ] = getBooks();
-    $data[ 'view' ] = 'views/' . $GLOBALS[ 'a' ] . $GLOBALS[ 'e' ] . '.php';
+    include( 'models/' . $GLOBALS[ 'e' ] . '.php' ); // -- pourquoi $GLOBALS[ 'e' ] => parce que c'est pas comme ne JS, une variable global ne peux pas etre utiliser dans une fonction. il faut mettre $GLOBALS[...] pour qu'il aille chercher la variable global en dehors de la fonction.
+    $data[ 'books' ] = getBooks(); // renvoi vers la function du model books
+    $data[ 'view' ] = 'views/' . $GLOBALS[ 'a' ] . $GLOBALS[ 'e' ] . '.php'; // correspond à : $data['view'] = 'views/indexbooks.php'
 
     return $data;
 }

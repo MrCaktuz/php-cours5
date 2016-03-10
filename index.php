@@ -10,16 +10,21 @@ $pdoOptions = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
 ]; // les :: c'est pour les propriétés d'une class. Dans une class in y a des fonctions et des propriétés. $monPDO->$toto (pour les propriétés) pour les variable statique (qu'on ne peut utiliser que directement dnas la class) on utilise PDO::$titi
 
-try{
+try{ // -- On se connect à la base de donnée ici !
     $dsn = sprintf( '%s:host=%s;dbname=%s',$dbConfig[ 'driver' ], $dbConfig[ 'host' ], $dbConfig[ 'dbname' ] ); //on remplace par des joker (%s) grace à sprintf on remplace les %s par ce qu'on veut.
-    $cn = new PDO( $dsn, $dbConfig[ 'username' ], $dbConfig[ 'password' ], $pdoOptions );
-    $cn -> query( 'SET CHARACTER SET UTF8' );
-    $cn -> query( 'SET NAMES UTF8' );
-} catch( PDOException $e ) {
-    die( $e->getMessage() );
+    $cn = new PDO( $dsn, $dbConfig[ 'username' ], $dbConfig[ 'password' ], $pdoOptions ); // On crée un objet pdo pour se connecter. Cela peut fonctionner ou pas, c'est pour ça qu'on met un try. il teste le code et si ça marche pas il renvoit une exception.
+    $cn -> exec( 'SET CHARACTER SET UTF8' ); // grave à cette connection on peut faire des actions sur la base de donnée. On lui dit ici que les chaines de caractaire sont en UTF-8.
+    $cn -> exec( 'SET NAMES UTF8' ); // pareil qu'au dessus.
+} catch( PDOException $e ) { // ici on récupere l'exeption dans la variable $e
+    die( $e->getMessage() ); // on envoit un msessage d'error si il y a une exception.
 }
 
+// Ici on est connecté à la DB ! (Data Base)
+
 include( 'routes.php' );
+
+// -- On découpe les requetes en une action ($a) et un sujet ($e)
+// -- Ici on a mis comme comportement par défault de lister les livres ($a=index et $e=books)
 
 //les nom des variable sont choisi en fonction de l'architecture REST
 $a = isset( $_REQUEST[ 'a' ] ) ? $_REQUEST[ 'a' ] : 'index';
@@ -36,13 +41,15 @@ $e = isset( $_REQUEST[ 'e' ] ) ? $_REQUEST[ 'e' ] : 'books';
 //     $e = $_REQUEST[ 'e' ];
 // }
 
-if ( !in_array( $a . '_' . $e, $routes ) ) {
+// -- Ici on gère les possibilités de l'utilisateur. On fait en sorte de ne lui permetre que ce qu'on veut. grace à un tableau $routes
+if ( !in_array( $a . '_' . $e, $routes ) ) { // On parcourt $routes pour voir si l'élément entré ne se trouve pas dans le tableau.
     die( 'cette route n\'est pas permise' );
 }
 
-include( 'controllers/' . $e . 'controller.php' );
+include( 'controllers/' . $e . 'controller.php' ); // pour ne pas avoir un code kilometrique, on réutilise la variable $e pour renvoyer dans un fichier concernant ce que l'utilisateur nous a demandé.
 
-$datas = call_user_func( $a );
+$datas = call_user_func( $a ); // ici on appel la function qui correspond à l'action à exécuter ($a) (la function se trouve dans les fichiers controllers)
+// -- call_user-func nous donne un tableau.
 // var_dump( $datas );
 
 // supprimé grace à la ligne 40.
@@ -66,7 +73,10 @@ $datas = call_user_func( $a );
 // $books = $pdoStmnt -> fetchAll(); // va rechercher les données dans la BDD et les stock sous forme de tableau dans $books.
 // // var_dump( $books );
 
-include( 'views/view.php' );
+include( 'views/view.php' ); // ici on inclu la vue générique.
 // foreach ( $books as $book ) {
 //     echo $book -> title . '<br>';
 // } // ça marche mais on préfère utiliser la syntax d'objet. Pour ça on va faire un array d'option dans le PDO
+
+
+// -- la page index ne fait qu'accéder à la DB, prendre ce que l'utilisateur demander et aller chercher les fichiers en conséquence.

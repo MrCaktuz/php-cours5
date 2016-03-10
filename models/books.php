@@ -1,13 +1,13 @@
 <?php
 
 function getBooks() {
-    $booksStmnt = 'SELECT * FROM books';
-    $pdoStmnt = $GLOBALS[ 'cn' ] -> query( $booksStmnt ); // GLOBALS nous permet de récuperer n'importe quel variable.
+    $booksStmnt = 'SELECT * FROM books'; // -- je défini une requete SQL
+    $pdoStmnt = $GLOBALS[ 'cn' ] -> query( $booksStmnt ); // -- j'exécute la requete SDL - GLOBALS nous permet de récuperer n'importe quel variable qui n'a pas été définie dans la function.
     // var_dump( $pdoStmnt );
     // $books = $pdoStmnt -> fetchAll(); // va rechercher les données dans la BDD et les stock sous forme de tableau dans $books.
     // var_dump( $books );
 
-    return $pdoStmnt -> fetchAll();
+    return $pdoStmnt -> fetchAll(); // -- le fetchAll nous fait un tableau d'objet  
 }
 
 function getBook( $id ) {
