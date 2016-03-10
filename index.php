@@ -1,4 +1,11 @@
 <?php
+
+set_include_path( __DIR__ . '/controllers' . PATH_SEPARATOR . __DIR__ . '/models' . PATH_SEPARATOR . get_include_path() ); // grace à ceci, il n'y aps pas besoin de changer le chemin pour la fonction qui charge les classe automatiquement.
+
+spl_autoload_register( function( $class ) {
+    include ( $class . '.php' ); // Importe automatiquement les class dont on a besoin
+} );
+
 // echo "test";
 // à chaque fois qu'on fait une requete PHP on va devoir aller dans la base de données BDD.
 // Quand on travaille des objet il faut les décrire avant.
@@ -46,9 +53,12 @@ if ( !in_array( $a . '_' . $e, $routes ) ) { // On parcourt $routes pour voir si
     die( 'cette route n\'est pas permise' );
 }
 
-include( 'controllers/' . $e . 'controller.php' ); // pour ne pas avoir un code kilometrique, on réutilise la variable $e pour renvoyer dans un fichier concernant ce que l'utilisateur nous a demandé.
+// remplacé par $controller_name !
+// include( 'controllers/' . $e . 'controller.php' ); // pour ne pas avoir un code kilometrique, on réutilise la variable $e pour renvoyer dans un fichier concernant ce que l'utilisateur nous a demandé.
+$controller_name = ucfirst($e) . 'Controller';
+$controller = new $controller_name;
 
-$datas = call_user_func( $a ); // ici on appel la function qui correspond à l'action à exécuter ($a) (la function se trouve dans les fichiers controllers)
+$datas = call_user_func( [ $controller, $a ] ); // ici on appel la function qui correspond à l'action à exécuter ($a) (la function se trouve dans les fichiers controllers)
 // -- call_user-func nous donne un tableau.
 // var_dump( $datas );
 
