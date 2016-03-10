@@ -19,9 +19,9 @@ class AuthorsController
 
     public function index() {
         // include( 'models/' . $GLOBALS[ 'e' ] . '.php' );
-        // remplacé par : $this -> authors_model ->  devant getAuthors
+        // remplacé par : $this -> authors_model ->  devant getRows
 
-        $data[ 'authors' ] = $this -> authors_model -> getAuthors();
+        $data[ 'authors' ] = $this -> authors_model -> getRows();
         $data[ 'view' ] = 'views/' . $GLOBALS[ 'a' ] . $GLOBALS[ 'e' ] . '.php';
 
         return $data;
@@ -31,11 +31,11 @@ class AuthorsController
         if ( isset( $_GET[ 'id' ] ) ) {
             $id = intval( $_GET[ 'id' ] ); // intval nous permet de vérifier si c'est bien un entier.
             // include( 'models/' . $GLOBALS[ 'e' ] . '.php' );
-            // remplacé par : $this -> authors_model ->  devant getAuthor
+            // remplacé par : $this -> authors_model ->  devant getRow
 
             // $book = getBook( $id );
             // $view = 'views/singlebook.php'; // supprimé grace à la ligne 36, 38.
-            $data[ 'author' ] = $this -> authors_model -> getAuthor( $id );
+            $data[ 'author' ] = $this -> authors_model -> getRow( $id );
             $data[ 'view' ] = 'views/' . $GLOBALS[ 'a' ] . $GLOBALS[ 'e' ] . '.php';
 
             return $data;

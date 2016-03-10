@@ -19,9 +19,9 @@ class BooksController // On le met dans une classe pour passer a une méthode ob
 
     public function index() {
         // include( 'models/' . $GLOBALS[ 'e' ] . '.php' ); // -- pourquoi $GLOBALS[ 'e' ] => parce que c'est pas comme ne JS, une variable global ne peux pas etre utiliser dans une fonction. il faut mettre $GLOBALS[...] pour qu'il aille chercher la variable global en dehors de la fonction.
-        // remplacé par : $this -> books_model -> avant getBooks
+        // remplacé par : $this -> books_model -> avant getRows
 
-        $data[ 'books' ] = $this -> books_model -> getBooks(); // renvoi vers la function du model books
+        $data[ 'books' ] = $this -> books_model -> getRows(); // renvoi vers la function du model books
         $data[ 'view' ] = 'views/' . $GLOBALS[ 'a' ] . $GLOBALS[ 'e' ] . '.php'; // correspond à : $data['view'] = 'views/indexbooks.php'
 
         return $data;
@@ -31,11 +31,11 @@ class BooksController // On le met dans une classe pour passer a une méthode ob
         if ( isset( $_GET[ 'id' ] ) ) {
             $id = intval( $_GET[ 'id' ] ); // intval nous permet de vérifier si c'est bien un entier.
             // include( 'models/' . $GLOBALS[ 'e' ] . '.php' );
-            // remplacé par $this -> books_model -> devant getBook.
-            
+            // remplacé par $this -> books_model -> devant getRow.
+
             // $book = getBook( $id );
             // $view = 'views/singlebook.php'; // supprimé grace à la ligne 36, 38.
-            $data[ 'book' ] = $this -> books_model -> getBook( $id );
+            $data[ 'book' ] = $this -> books_model -> getRow( $id );
             $data[ 'view' ] = 'views/' . $GLOBALS[ 'a' ] . $GLOBALS[ 'e' ] . '.php';
 
             return $data;

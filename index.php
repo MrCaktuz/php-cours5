@@ -10,6 +10,7 @@ spl_autoload_register( function( $class ) {
 // à chaque fois qu'on fait une requete PHP on va devoir aller dans la base de données BDD.
 // Quand on travaille des objet il faut les décrire avant.
 
+// de là
 $dbConfig = parse_ini_file( 'db.ini' ); // contient les donnée qu'on ne veut pas divulger.
 // var_dump($dbConfig); // Pour voir ce qu'il y a dedans.
 $pdoOptions = [
@@ -25,6 +26,7 @@ try{ // -- On se connect à la base de donnée ici !
 } catch( PDOException $e ) { // ici on récupere l'exeption dans la variable $e
     die( $e->getMessage() ); // on envoit un msessage d'error si il y a une exception.
 }
+// à de là.
 
 // Ici on est connecté à la DB ! (Data Base)
 
@@ -58,7 +60,7 @@ if ( !in_array( $a . '_' . $e, $routes ) ) { // On parcourt $routes pour voir si
 $controller_name = ucfirst($e) . 'Controller';
 $controller = new $controller_name;
 
-$datas = call_user_func( [ $controller, $a ] ); // ici on appel la function qui correspond à l'action à exécuter ($a) (la function se trouve dans les fichiers controllers)
+$datas = call_user_func( [ $controller, $a ] ); // donne le contexte de $a grace à $controller - ici on appel la function qui correspond à l'action à exécuter ($a) (la function se trouve dans les fichiers controllers)
 // -- call_user-func nous donne un tableau.
 // var_dump( $datas );
 
