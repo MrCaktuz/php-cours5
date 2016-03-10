@@ -1,4 +1,4 @@
-<?php var_dump($data[authors]); ?>
+<!-- <?php var_dump( $datas[ 'authors' ] ); ?> -->
 <ul>
     <?php foreach ( $datas[ 'authors' ] as $author ) :?>
             <li><a href="index.php?a=show&e=authors&id=<?php echo $author -> id; ?>"><?php echo $author -> name; ?></a></li> <!--tous les liens pointe vers le index.-->
