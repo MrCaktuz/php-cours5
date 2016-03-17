@@ -1,4 +1,7 @@
 <?php
+namespace Controller;
+
+use Model\Authors;
 
 class AuthorsController
 {

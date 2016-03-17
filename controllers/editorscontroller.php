@@ -1,4 +1,7 @@
 <?php
+namespace Controller;
+
+use Model\Editors;
 
 class EditorsController
 {

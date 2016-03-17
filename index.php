@@ -1,10 +1,11 @@
 <?php
 
-set_include_path( __DIR__ . '/controllers' . PATH_SEPARATOR . __DIR__ . '/models' . PATH_SEPARATOR . get_include_path() ); // grace à ceci, il n'y aps pas besoin de changer le chemin pour la fonction qui charge les classe automatiquement.
-
-spl_autoload_register( function( $class ) {
-    include ( $class . '.php' ); // Importe automatiquement les class dont on a besoin
-} );
+require 'vendor/autoload.php';//remplace les 3 prochaines lignes du au namespace.
+// On supprime ces 4 lignes vu qu'elle ne vont plus du au namespace => On fait un dumpautoload pour avoir les rapports de dossier/namespace.
+// set_include_path( __DIR__ . '/controllers' . PATH_SEPARATOR . __DIR__ . '/models' . PATH_SEPARATOR . get_include_path() ); // grace à ceci, il n'y aps pas besoin de changer le chemin pour la fonction qui charge les classe automatiquement.
+// spl_autoload_register( function( $class ) {
+//     include ( $class . '.php' ); // Importe automatiquement les class dont on a besoin
+// } );
 
 // echo "test";
 // à chaque fois qu'on fait une requete PHP on va devoir aller dans la base de données BDD.
@@ -43,7 +44,7 @@ if ( !in_array( $a . '_' . $e, $routes ) ) { // On parcourt $routes pour voir si
 
 // remplacé par $controller_name !
 // include( 'controllers/' . $e . 'controller.php' ); // pour ne pas avoir un code kilometrique, on réutilise la variable $e pour renvoyer dans un fichier concernant ce que l'utilisateur nous a demandé.
-$controller_name = ucfirst($e) . 'Controller';
+$controller_name = '\Controller\\' . ucfirst($e) . 'Controller';
 $controller = new $controller_name;
 
 $datas = call_user_func( [ $controller, $a ] ); // donne le contexte de $a grace à $controller - ici on appel la function qui correspond à l'action à exécuter ($a) (la function se trouve dans les fichiers controllers)

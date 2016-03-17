@@ -1,4 +1,4 @@
-<h1>La liste des éditeurs</h1>
+<h1>Liste des éditeurs</h1>
 
 <ul>
     <?php foreach ($datas['editors'] as $editor): ?>

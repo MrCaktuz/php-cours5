@@ -1,4 +1,7 @@
 <?php
+namespace Controller;
+
+use Model\Books;
 
 class BooksController // On le met dans une classe pour passer a une méthode object.
 {
@@ -6,7 +9,7 @@ class BooksController // On le met dans une classe pour passer a une méthode ob
 
     public function __construct() // function qui s'exe quand on fait le new.
     {
-        $this -> books_model = new Books(); // On le rajoute avant getBooks
+        $this -> books_model = new Books; // On le rajoute avant getBooks
     }
 
     // Un controller c'est quelque chose qui controle ce que l'uitilisateur veut/donne et produit les donné qui vont etre renvoyer dans les views et dont quel view va etre utilisé.
