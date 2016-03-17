@@ -1,7 +1,9 @@
 <?php
+// analyser ce que l'utilisateur veux vraiment.
 namespace Controller;
 
 use Model\Authors;
+use Model\Books;
 
 class AuthorsController
 {
@@ -31,19 +33,48 @@ class AuthorsController
     }
 
     public function show() {
-        if ( isset( $_GET[ 'id' ] ) ) {
-            $id = intval( $_GET[ 'id' ] ); // intval nous permet de vérifier si c'est bien un entier.
-            // include( 'models/' . $GLOBALS[ 'e' ] . '.php' );
-            // remplacé par : $this -> authors_model ->  devant find
+        // if ( isset( $_GET[ 'id' ] ) ) {
+        //     $id = intval( $_GET[ 'id' ] ); // intval nous permet de vérifier si c'est bien un entier.
+        //     // include( 'models/' . $GLOBALS[ 'e' ] . '.php' );
+        //     // remplacé par : $this -> authors_model ->  devant find
+        //
+        //     // $book = getBook( $id );
+        //     // $view = 'views/singlebook.php'; // supprimé grace à la ligne 36, 38.
+        //     $data[ 'author' ] = $this -> authors_model -> find( $id );
+        //     $data[ 'view' ] = 'views/' . $GLOBALS[ 'a' ] . $GLOBALS[ 'e' ] . '.php';
+        //     $data[ 'books' ] = null;
+        //
+        //     return $data;
+        //
+        // } else {
+        //     die( 'il manque l\'id' );
+        // }
 
-            // $book = getBook( $id );
-            // $view = 'views/singlebook.php'; // supprimé grace à la ligne 36, 38.
-            $data[ 'author' ] = $this -> authors_model -> find( $id );
-            $data[ 'view' ] = 'views/' . $GLOBALS[ 'a' ] . $GLOBALS[ 'e' ] . '.php';
-
-            return $data;
-        } else {
-            die( 'il manque l\'id' );
+        if ( !isset( $_GET[ 'id' ] ) ) {
+            die( 'Il manque l\'identifiant de votre livre' );
         }
+
+        $id = intval( $_GET[ 'id' ] );
+        $author = $this -> authors_model -> find( $id );
+        $book = null;
+
+        if ( isset( $_GET[ 'with' ] ) ) {
+            // $with = $_GET[ 'with' ];
+            // $parts = explode( ',', $with );
+            $with = explode( ',', $_GET[ 'with' ] );
+
+            if ( in_array( 'books', $with ) ) {
+                $books_model = new Books();
+                $books = $books_model -> getBooksByAuthorId( $author -> id );
+            }
+        }
+var_dump( $author );
+        return [
+            'book' => $book,
+            'view' => 'showbooks.php',
+            'page_title' => 'ebooks' . $author -> name,
+            'books' => $books
+        ];
+
     }
 }

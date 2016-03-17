@@ -1,4 +1,5 @@
 <?php
+// analyse l'url pour savoir quel controller aller cherche.
 
 require 'vendor/autoload.php';//remplace les 3 prochaines lignes du au namespace.
 // On supprime ces 4 lignes vu qu'elle ne vont plus du au namespace => On fait un dumpautoload pour avoir les rapports de dossier/namespace.

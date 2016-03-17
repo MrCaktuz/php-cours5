@@ -11,17 +11,27 @@
         <?php echo $datas[ 'book' ] -> summary; ?>
     </div>
 <?php endif; ?>
-<?php if ( $datas[ 'book' ] -> published_at ): ?>
-    <div>
-        <p>Ce livre a été publié à la date du :</p>
-        <?php echo $datas[ 'book' ] -> published_at; ?>
-    </div>
+
+<?php if( $datas[ 'authors' ] ): ?>
+    <ul class="authors">
+        <h2>written by :</h2>
+        <?php foreach( $datas[ 'authors' ] as $author ): ?>
+            <li class="authors">
+                <a href="?a=show&e=authors&id=<?php echo $author -> id; ?>&with=books"><?php echo $author -> name; ?></a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
 <?php endif; ?>
-<?php if ( $datas[ 'book' ] -> pages_num ): ?>
-    <div>
-        <p>Ce livre à :</p>
-        <?php echo $datas[ 'book' ] -> pages_num . " pages"; ?>
-    </div>
+
+<?php if( $datas[ 'editors' ] ): ?>
+    <ul class="editors">
+        <h2>Edited by :</h2>
+        <?php foreach( $datas[ 'editors' ] as $editor ): ?>
+            <li class="editors">
+                <a href="?a=show&e=editors&id=<?php echo $editor -> id; ?>"><?php echo $editor -> name; ?></a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
 <?php endif; ?>
 
 <div>

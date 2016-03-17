@@ -1,22 +1,15 @@
 <h1><?php echo $datas[ 'author' ] -> name; ?></h1>
 
-<div class="birth">
-    <?php if ( $datas[ 'author' ] -> birth_date ): ?>
-        <div>
-            <h2>Né le :</h2>
-            <?php echo $datas[ 'author' ] -> birth_date; ?>
-        </div>
-    <?php endif; ?>
-</div>
-
-<div class="death">
-    <?php if ( $datas[ 'author' ] -> death_date ): ?>
-        <div>
-            <h2>Mort le :</h2>
-            <?php echo $datas[ 'author' ] -> death_date; ?>
-        </div>
-    <?php endif; ?>
-</div>
+<?php if( $datas[ 'books' ] ): ?>
+    <ul class="books">
+        <h2>He wrote :</h2>
+        <?php foreach( $datas[ 'books' ] as $book ): ?>
+            <li class="books">
+                <a href="?a=show&e=books&id=<?php echo $author -> id; ?>&with=authors,editors"><?php echo $book -> name; ?></a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
 
 <div class="Bio">
     <?php if ( $datas[ 'author' ] -> bio ): ?>

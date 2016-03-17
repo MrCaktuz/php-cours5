@@ -1,4 +1,5 @@
 <?php
+// analyser ce que l'utilisateur veux vraiment.
 namespace Controller;
 
 use Model\Editors;
