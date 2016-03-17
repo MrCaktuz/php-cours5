@@ -11,21 +11,6 @@ spl_autoload_register( function( $class ) {
 // Quand on travaille des objet il faut les décrire avant.
 
 // de là
-$dbConfig = parse_ini_file( 'db.ini' ); // contient les donnée qu'on ne veut pas divulger.
-// var_dump($dbConfig); // Pour voir ce qu'il y a dedans.
-$pdoOptions = [
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-]; // les :: c'est pour les propriétés d'une class. Dans une class in y a des fonctions et des propriétés. $monPDO->$toto (pour les propriétés) pour les variable statique (qu'on ne peut utiliser que directement dnas la class) on utilise PDO::$titi
-
-try{ // -- On se connect à la base de donnée ici !
-    $dsn = sprintf( '%s:host=%s;dbname=%s',$dbConfig[ 'driver' ], $dbConfig[ 'host' ], $dbConfig[ 'dbname' ] ); //on remplace par des joker (%s) grace à sprintf on remplace les %s par ce qu'on veut.
-    $cn = new PDO( $dsn, $dbConfig[ 'username' ], $dbConfig[ 'password' ], $pdoOptions ); // On crée un objet pdo pour se connecter. Cela peut fonctionner ou pas, c'est pour ça qu'on met un try. il teste le code et si ça marche pas il renvoit une exception.
-    $cn -> exec( 'SET CHARACTER SET UTF8' ); // grave à cette connection on peut faire des actions sur la base de donnée. On lui dit ici que les chaines de caractaire sont en UTF-8.
-    $cn -> exec( 'SET NAMES UTF8' ); // pareil qu'au dessus.
-} catch( PDOException $e ) { // ici on récupere l'exeption dans la variable $e
-    die( $e->getMessage() ); // on envoit un msessage d'error si il y a une exception.
-}
 // à de là.
 
 // Ici on est connecté à la DB ! (Data Base)
