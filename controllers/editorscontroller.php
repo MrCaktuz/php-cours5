@@ -12,10 +12,10 @@ class EditorsController
     public function index()
     {
         // include( 'models/editors.php' );
-        // remplacé par : $this -> editors_model -> devant getRows
+        // remplacé par : $this -> editors_model -> devant all
 
         $data['page_title'] = 'Editors - Biblio2';
-        $data[ 'editors' ] = $this -> editors_model -> getRows();
+        $data[ 'editors' ] = $this -> editors_model -> all();
         $data[ 'view' ] = 'views/indexeditors.php';
         return $data;
     }
@@ -23,14 +23,14 @@ class EditorsController
     public function show()
     {
         // include( 'models/editors.php' );
-        // remplacé par : $this -> editors_model -> devant getRow
+        // remplacé par : $this -> editors_model -> devant find
 
         $id = isset( $_GET[ 'id' ] )?intval( $_GET[ 'id' ] ):0; // On récupere l'id entré.
         if ( $id == 0 ) {
             die( 'l\'éditeur demandé n\'existe pas' );
         }
 
-        $data[ 'editor' ] = $this -> editors_model -> getRow( $id );
+        $data[ 'editor' ] = $this -> editors_model -> find( $id );
         $data[ 'page_name' ] = 'Fiche de ' . $data[ 'editor' ] -> name;
         $data[ 'view' ] = 'views/showeditors.php';
 

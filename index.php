@@ -11,6 +11,7 @@ spl_autoload_register( function( $class ) {
 // Quand on travaille des objet il faut les décrire avant.
 
 // de là
+// function getCn déplacé dans le model.php
 // à de là.
 
 // Ici on est connecté à la DB ! (Data Base)
