@@ -3,6 +3,8 @@
 namespace Controller;
 
 use Model\Editors;
+use Model\Books;
+use Model\Authors;
 
 class EditorsController
 {
@@ -26,19 +28,35 @@ class EditorsController
 
     public function show()
     {
-        // include( 'models/editors.php' );
-        // remplacé par : $this -> editors_model -> devant find
+        if ( !isset( $_GET[ 'id' ] ) ) {
+            die( 'Il manque l\'identifiant de votre livre' );
+        }
+        $id = intval( $_GET[ 'id' ] );
+        $editor = $this -> editors_model -> find( $id );
+        $authors = null;
+        $books = null;
 
-        $id = isset( $_GET[ 'id' ] )?intval( $_GET[ 'id' ] ):0; // On récupere l'id entré.
-        if ( $id == 0 ) {
-            die( 'l\'éditeur demandé n\'existe pas' );
+        if ( isset( $_GET[ 'with' ] ) ) {
+            // $with = $_GET[ 'with' ];
+            // $parts = explode( ',', $with );
+            $with = explode( ',', $_GET[ 'with' ] );
+            if ( in_array( 'authors', $with ) ) {
+                $authors_model = new Authors();
+                $authors = $authors_model -> getAuthorsByEditorId( $editor -> id );
+            }
+            if ( in_array( 'books', $with ) ) {
+                $books_model = new Books();
+                $books = $books_model -> getBooksByEditorId( $editor -> id );
+            }
         }
 
-        $data[ 'editor' ] = $this -> editors_model -> find( $id );
-        $data[ 'page_name' ] = 'Fiche de ' . $data[ 'editor' ] -> name;
-        $data[ 'view' ] = 'views/showeditors.php';
-
-        return $data;
+        return [
+            'editor' => $editor,
+            'view' => 'showeditors.php',
+            'page_title' => 'ebooks - ' . $editor -> name,
+            'authors' => $authors,
+            'books' => $books
+        ];
     }
     //Les controllers serve à analyser ce que l'utilisateur demander.
 

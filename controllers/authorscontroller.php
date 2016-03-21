@@ -4,6 +4,7 @@ namespace Controller;
 
 use Model\Authors;
 use Model\Books;
+use Model\Editors;
 
 class AuthorsController
 {
@@ -67,13 +68,20 @@ class AuthorsController
                 $books_model = new Books();
                 $books = $books_model -> getBooksByAuthorId( $author -> id );
             }
+            if ( in_array( 'editors', $with ) ) {
+                $editors_model = new Editors();
+                $editors = $editors_model -> getEditorsByAuthorId( $author -> id );
+            }
         }
-var_dump( $author );
+
+        $view = 'showAuthors.php';
+// var_dump( $author );
         return [
-            'book' => $book,
-            'view' => 'showbooks.php',
-            'page_title' => 'ebooks' . $author -> name,
-            'books' => $books
+            'author' => $author,
+            'view' => 'showAuthors.php',
+            'page_title' => 'ebooks - ' . $author -> name,
+            'books' => $books,
+            'editors' => $editors
         ];
 
     }

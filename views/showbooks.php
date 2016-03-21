@@ -1,4 +1,4 @@
-<h1><?php echo $datas[ 'book' ] -> title; ?></h1>
+<h1>Book's title : <?php echo $datas[ 'book' ] -> title; ?></h1>
 
 <?php if ( $datas[ 'book' ] -> cover ): ?>
     <div>
@@ -13,22 +13,22 @@
 <?php endif; ?>
 
 <?php if( $datas[ 'authors' ] ): ?>
+    <h2>Written by :</h2>
     <ul class="authors">
-        <h2>written by :</h2>
         <?php foreach( $datas[ 'authors' ] as $author ): ?>
             <li class="authors">
-                <a href="?a=show&e=authors&id=<?php echo $author -> id; ?>&with=books"><?php echo $author -> name; ?></a>
+                <a href="?a=show&e=authors&id=<?php echo $author -> id; ?>&with=books,editors"><?php echo $author -> name; ?></a>
             </li>
         <?php endforeach; ?>
     </ul>
 <?php endif; ?>
 
 <?php if( $datas[ 'editors' ] ): ?>
+    <h2>Edited by :</h2>
     <ul class="editors">
-        <h2>Edited by :</h2>
         <?php foreach( $datas[ 'editors' ] as $editor ): ?>
             <li class="editors">
-                <a href="?a=show&e=editors&id=<?php echo $editor -> id; ?>"><?php echo $editor -> name; ?></a>
+                <a href="?a=show&e=editors&id=<?php echo $editor -> id; ?>&with=books,authors"><?php echo $editor -> name; ?></a>
             </li>
         <?php endforeach; ?>
     </ul>

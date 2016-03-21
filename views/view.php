@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <title><?php echo $data['page_title']; ?></title>
+        <title><?php echo $datas['page_title']; ?></title>
     </head>
     <body>
         <?php include( 'views/partials/_main_navigation.php' ); ?>

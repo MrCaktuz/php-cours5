@@ -19,4 +19,16 @@ class Books extends Model
 
         return $stmnt -> fetchAll();
     }
+
+    public function getBooksByEditorId( $id ) {
+        $sql = 'SELECT books.*
+                FROM books
+                JOIN editors ON editors.id = books.editor_id
+                WHERE editors.id = :id';
+
+        $stmnt = $this -> cn -> prepare( $sql );
+        $stmnt -> execute( [ ':id' => $id ] );
+
+        return $stmnt -> fetchAll();
+    }
 }

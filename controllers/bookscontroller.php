@@ -75,11 +75,9 @@ class BooksController // On le met dans une classe pour passer a une méthode ob
         return [
             'book' => $book,
             'view' => 'showbooks.php',
-            'page_title' => 'ebooks' . $book -> title,
+            'page_title' => 'ebooks - ' . $book -> title,
             'authors' => $authors,
             'editors' => $editors
         ];
-
     }
-
 }
